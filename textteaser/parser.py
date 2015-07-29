@@ -73,7 +73,7 @@ class Parser:
     return [word for word in words if word not in self.stopWords]
 
   def getStopWords(self):
-    return stopwords = nltk.corpus.stopwords.words('portuguese')
+    return nltk.corpus.stopwords.words('portuguese')
     """
     with open(os.path.dirname(os.path.abspath(__file__)) + '/trainer/stopWords.txt') as file:
       words = file.readlines()
