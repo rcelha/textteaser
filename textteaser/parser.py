@@ -6,7 +6,9 @@ import nltk.corpus
 import os
 
 class Parser:
-  def __init__(self):
+
+  def __init__(self, language=None):
+    self.language = language or "English"
     self.ideal = 20.0
     self.stopWords = self.getStopWords()
 
@@ -59,8 +61,8 @@ class Parser:
     return len(matchedWords) / (len(title) * 1.0)
 
   def splitSentences(self, text):
-    # tokenizer = nltk.data.load('file:' + os.path.dirname(os.path.abspath(__file__)) + '/trainer/english.pickle')
-    tokenizer = nltk.data.load('tokenizers/punkt/portuguese.pickle')
+    tokenizer_name = 'tokenizers/punkt/{0}.pickle'.format(self.language.lower())
+    tokenizer = nltk.data.load(tokenizer_name)
     return tokenizer.tokenize(text)
 
   def splitWords(self, sentence):
@@ -73,10 +75,5 @@ class Parser:
     return [word for word in words if word not in self.stopWords]
 
   def getStopWords(self):
-    return nltk.corpus.stopwords.words('portuguese')
-    """
-    with open(os.path.dirname(os.path.abspath(__file__)) + '/trainer/stopWords.txt') as file:
-      words = file.readlines()
+    return nltk.corpus.stopwords.words(self.language.lower())
 
-    return [word.replace('\n', '') for word in words]
-    """

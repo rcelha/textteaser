@@ -4,8 +4,10 @@
 from .parser import Parser
 
 class Summarizer:
-  def __init__(self):
-    self.parser = Parser()
+
+  def __init__(self, language=None):
+    self.language = language or "English"
+    self.parser = Parser(language=self.language)
 
   def summarize(self, text, title, source, category):
     sentences = self.parser.splitSentences(text)
